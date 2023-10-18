@@ -7,12 +7,11 @@ public class Movement : MonoBehaviour
     private bool isMoving;
     [SerializeField] private float gridSize = 1f;
     [SerializeField] private float moveDuration = 0.1f;
-    private Rigidbody2D rb;
     
     // Start is called before the first frame update
     void Start()
     {
-        rb = gameObject.GetComponent<Rigidbody2D>();
+
     }
 
     // Update is called once per frame
@@ -20,24 +19,13 @@ public class Movement : MonoBehaviour
     {
         if(!isMoving)
         {
-            System.Func<KeyCode, bool> movement;
-            movement = Input.GetKey;
+            float h = Input.GetAxisRaw("Horizontal");
+            float v = Input.GetAxisRaw("Vertical");
+            Vector2 moving = new Vector2(h, v);
 
-            if (movement(KeyCode.UpArrow))
+            if((h != 0) != (v != 0))
             {
-                StartCoroutine(Move(Vector2.up));
-            }
-            else if (movement(KeyCode.DownArrow))
-            {
-                StartCoroutine(Move(Vector2.down));
-            }
-            else if (movement(KeyCode.LeftArrow))
-            {
-                StartCoroutine(Move(Vector2.left));
-            }
-            else if (movement(KeyCode.RightArrow))
-            {
-                StartCoroutine(Move(Vector2.right));
+                StartCoroutine(Move(moving));
             }
         }
 

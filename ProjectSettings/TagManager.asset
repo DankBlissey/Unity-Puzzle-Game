@@ -3,7 +3,16 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Rotate1
+  - Rotate2
+  - Rotate3
+  - Move1
+  - Move2
+  - Move3
+  - Goal
+  - Key
+  - Button
   layers:
   - Default
   - TransparentFX

@@ -34,6 +34,7 @@ public class Movement : MonoBehaviour
     private IEnumerator Move(Vector2 direction)
     {
         Vector2 adj = direction * 0.5f * gridSize;
+        Vector2 adjFar = direction * 0.45f * gridSize;
        
         
         isMoving = true;
@@ -41,17 +42,29 @@ public class Movement : MonoBehaviour
         Vector2 startPos = transform.position;
 
         Vector2 hitObj = startPos;
+        Vector2 hitObjFar = startPos;
 
         RaycastHit2D hit = Physics2D.Raycast(startPos, direction, 100f);
 
         if(hit)
         {
             Debug.Log("hit object at " + hit.point);
+            hitObjFar = hit.point - adjFar;
             hitObj = hit.point - adj;
+            Button button = hit.transform.GetComponent<Button>();
+            if (button != null)
+            {
+                button.IncomingHit();
+            }
+            Invisibleblock invisibleblock = hit.transform.GetComponent<Invisibleblock>();
+            if(invisibleblock != null)
+            {
+                invisibleblock.IncomingHit();
+            }
+            
         }
 
-        Vector2 endPos = startPos + (direction * gridSize);
-
+        
         float elapsedTime = 0;
 
         while(elapsedTime < moveDuration)
@@ -62,8 +75,8 @@ public class Movement : MonoBehaviour
             yield return null;
         }
 
-        transform.position = hitObj;
 
+        transform.position = hitObj;
 
         isMoving = false;
     }

@@ -61,7 +61,12 @@ public class Movement : MonoBehaviour
             {
                 invisibleblock.IncomingHit();
             }
-            
+            Teleport teleport = hit.transform.GetComponent<Teleport>();
+            if (teleport != null)
+            {
+                teleport.IncomingHit();
+            }
+
         }
 
         
@@ -81,5 +86,11 @@ public class Movement : MonoBehaviour
         isMoving = false;
     }
 
+    public void Teleport(Vector2 position, Vector2 direction)
+    {
+        isMoving = true;
+        transform.position = position + direction;
+        StartCoroutine(Move(direction));
+    }
 
 }

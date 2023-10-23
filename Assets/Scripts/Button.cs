@@ -68,6 +68,7 @@ public class Button : MonoBehaviour
             {
 
             }
+            aboutToBeHit = false;
         }
         //could put audio here for the reveal
     }

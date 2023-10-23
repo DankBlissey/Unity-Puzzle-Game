@@ -22,10 +22,11 @@ public class Invisibleblock : MonoBehaviour
     //if a collision occurs, the object will reveal itself
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("triggered invisible block");
         if(aboutToBeHit)
         {
+            Debug.Log("triggered invisible block");
             gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            aboutToBeHit = false;
         }
         //could put audio here for the reveal
     }

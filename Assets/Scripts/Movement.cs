@@ -80,7 +80,7 @@ public class Movement : MonoBehaviour
             yield return null;
         }
 
-
+        hitObj = new Vector2(Mathf.Round(hitObj.x * 2) / 2, Mathf.Round(hitObj.y * 2) / 2);
         transform.position = hitObj;
 
         isMoving = false;

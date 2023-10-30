@@ -42,6 +42,9 @@ public class Rotate : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, percent);
                 yield return null;
             }
+            Vector2 hitObj = transform.position;
+            hitObj = new Vector2(Mathf.Round(hitObj.x * 2) / 2, Mathf.Round(hitObj.y * 2) / 2);
+            transform.position = hitObj;
             isRotated = true;
         } else
         {
@@ -56,6 +59,9 @@ public class Rotate : MonoBehaviour
                 transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, percent);
                 yield return null;
             }
+            Vector2 hitObj = transform.position;
+            hitObj = new Vector2(Mathf.Round(hitObj.x * 2) / 2, Mathf.Round(hitObj.y * 2) / 2);
+            transform.position = hitObj;
             isRotated = false;
         }
     }

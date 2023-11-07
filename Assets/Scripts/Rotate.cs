@@ -7,7 +7,6 @@ public class Rotate : MonoBehaviour
     [SerializeField] private int setRotation;
     [SerializeField] private int rotation1;
     [SerializeField] private int rotation2;
-    [SerializeField] private float rotateDuration;
     private bool isRotated;
     // Start is called before the first frame update
     void Start()
@@ -21,13 +20,13 @@ public class Rotate : MonoBehaviour
         
     }
 
-    public void RecieveToggle()
+    public void RecieveToggle(float speed)
     {
         Debug.Log("Toggle command recieved");
-        StartCoroutine(ToggleRotate());
+        StartCoroutine(ToggleRotate(speed));
     }
 
-    private IEnumerator ToggleRotate()
+    private IEnumerator ToggleRotate(float speed)
     {
         if(isRotated == false)
         {
@@ -35,10 +34,10 @@ public class Rotate : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(new Vector3(0,0,rotation2));
             float elapsedTime = 0;
 
-            while (elapsedTime < rotateDuration)
+            while (elapsedTime < speed)
             {
                 elapsedTime += Time.deltaTime;
-                float percent = elapsedTime / rotateDuration;
+                float percent = elapsedTime / speed;
                 transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, percent);
                 yield return null;
             }
@@ -52,10 +51,10 @@ public class Rotate : MonoBehaviour
             Quaternion targetRotation = Quaternion.Euler(new Vector3(0, 0, rotation1));
             float elapsedTime = 0;
 
-            while (elapsedTime < rotateDuration)
+            while (elapsedTime < speed)
             {
                 elapsedTime += Time.deltaTime;
-                float percent = elapsedTime / rotateDuration;
+                float percent = elapsedTime /speed;
                 transform.rotation = Quaternion.Slerp(initialRotation, targetRotation, percent);
                 yield return null;
             }

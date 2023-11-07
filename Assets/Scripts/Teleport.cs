@@ -5,6 +5,7 @@ using UnityEngine;
 public class Teleport : MonoBehaviour
 {
     [SerializeField] private Vector2 location;
+    [SerializeField] private float waitTime;
     private bool aboutToBeHit;
     // Start is called before the first frame update
     void Start()
@@ -33,5 +34,12 @@ public class Teleport : MonoBehaviour
     public void IncomingHit()
     {
         aboutToBeHit = true;
+        StartCoroutine(Wait(waitTime));
+    }
+
+    private IEnumerator Wait(float time)
+    {
+        yield return new WaitForSeconds(time);
+        aboutToBeHit = false;
     }
 }

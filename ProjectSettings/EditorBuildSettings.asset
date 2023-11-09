@@ -15,6 +15,42 @@ EditorBuildSettings:
     path: Assets/Scenes/Level Select.unity
     guid: fe33367fee346244894658ac227cd171
   - enabled: 1
-    path: Assets/Scenes/Turtorial 1.unity
+    path: Assets/Scenes/ControlsMenu.unity
+    guid: 4af7b88ce9394314bb38d2d7fb545fd9
+  - enabled: 1
+    path: Assets/Scenes/Level 1 (Tutorial Basic).unity
     guid: 00fb4d0f070a45343a1c6beff36ae8aa
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: 85f4901c3e6bd034fadd4adbb9faddc9
+  - enabled: 1
+    path: Assets/Scenes/Level 3.unity
+    guid: 14d5df40bf0857044abcb4ab10849af8
+  - enabled: 1
+    path: Assets/Scenes/Level 4.unity
+    guid: de76fa1059b543e4ca8fa893ec3a6efa
+  - enabled: 1
+    path: Assets/Scenes/Level 5 (Tutorial Button).unity
+    guid: 131c30d8a66a550449d5d6979bac11e8
+  - enabled: 1
+    path: Assets/Scenes/Level 6.unity
+    guid: c70399edd6c36314fb65ff17bda9853d
+  - enabled: 1
+    path: Assets/Scenes/Level 7.unity
+    guid: 1bdfa12e4967f3d43803e3e834f2b77e
+  - enabled: 1
+    path: Assets/Scenes/Level 8.unity
+    guid: 70268c1a122c05640b09fd436f916d52
+  - enabled: 1
+    path: Assets/Scenes/Level 9.unity
+    guid: 63377b127e00bde4dac1e58337c21759
+  - enabled: 1
+    path: Assets/Scenes/Level 10 (Teleport Tutorial).unity
+    guid: c5e7714a35b326d4bab3dc8a85ec2f7f
+  - enabled: 1
+    path: Assets/Scenes/Level 11.unity
+    guid: 31cd8967526453e4d89df047ebc39733
+  - enabled: 1
+    path: Assets/Scenes/Level 12.unity
+    guid: 241a07c4e73c4aa45af01bdae67cecc7
   m_configObjects: {}

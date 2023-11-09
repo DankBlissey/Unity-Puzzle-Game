@@ -13,11 +13,15 @@ TagManager:
   - Goal
   - Key
   - Button
+  - Sticky
+  - Doorway
+  - Teleport
+  - Invisible
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Doorway
   - Water
   - UI
   - 
@@ -49,6 +53,9 @@ TagManager:
   m_SortingLayers:
   - name: background
     uniqueID: 1862299357
+    locked: 0
+  - name: mid
+    uniqueID: 665429395
     locked: 0
   - name: Default
     uniqueID: 0

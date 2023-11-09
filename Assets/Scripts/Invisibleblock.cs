@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class Invisibleblock : MonoBehaviour
 {
-    private bool aboutToBeHit;
+    //private bool aboutToBeHit;
     // Start is called before the first frame update
     void Start()
     {
-        aboutToBeHit = false;
+        //aboutToBeHit = false;
         //starts the gameobject as invisible
-        gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
     }
 
     // Update is called once per frame
@@ -20,12 +20,13 @@ public class Invisibleblock : MonoBehaviour
     }
 
     //if a collision occurs, the object will reveal itself
+    /*
     private void OnTriggerEnter2D(Collider2D other)
     {
         if(aboutToBeHit)
         {
             Debug.Log("triggered invisible block");
-            gameObject.GetComponent<SpriteRenderer>().enabled = true;
+            Reveal();
             aboutToBeHit = false;
         }
         //could put audio here for the reveal
@@ -34,6 +35,17 @@ public class Invisibleblock : MonoBehaviour
     public void IncomingHit()
     {
         aboutToBeHit = true;
+    }
+    */
+
+    public void Reveal()
+    {
+        gameObject.GetComponent<SpriteRenderer>().enabled = true;
+    }
+
+    public void Hide()
+    {
+        gameObject.GetComponent<SpriteRenderer>().enabled = false;
     }
 }
 

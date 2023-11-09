@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/Scenes/Main menu.unity
     guid: af6ba616d9e49584099e67d7afeabf30
   - enabled: 1
+    path: Assets/Scenes/Level Select.unity
+    guid: fe33367fee346244894658ac227cd171
+  - enabled: 1
     path: Assets/Scenes/Turtorial 1.unity
     guid: 00fb4d0f070a45343a1c6beff36ae8aa
   m_configObjects: {}

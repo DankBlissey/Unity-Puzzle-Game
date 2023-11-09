@@ -12,18 +12,10 @@ public class NewBehaviourScript : MonoBehaviour
     {
             SceneManager.LoadScene(1);
     }
+
     public void QuitGame()
     {
         Application.Quit();
     }
 
-    public void Level1()
-    {
-        SceneManager.LoadScene(1);
-    }
-
-    public void BackButton()
-    {
-
-    }
 }

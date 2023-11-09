@@ -17,6 +17,7 @@ TagManager:
   - Doorway
   - Teleport
   - Invisible
+  - InvisibleText
   layers:
   - Default
   - TransparentFX

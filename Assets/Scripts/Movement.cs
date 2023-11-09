@@ -36,7 +36,13 @@ public class Movement : MonoBehaviour
                     foreach (GameObject i in player)
                     {
                         i.GetComponent<Invisibleblock>().Hide();
+                        
                         hasMoved = true;
+                    }
+                    GameObject[] text = GameObject.FindGameObjectsWithTag("InvisibleText");
+                    foreach (GameObject i in text)
+                    {
+                        i.GetComponent<TextDissapear>().Hide();
                     }
                 }
                 StartCoroutine(Move(moving));
@@ -110,6 +116,9 @@ public class Movement : MonoBehaviour
                     i.GetComponent<Button>().Activate();
                 }
                 break;
+            case "Goal":
+
+                break;
             default:
                 break;
         }
@@ -160,6 +169,10 @@ public class Movement : MonoBehaviour
                 Doorway doorway = hit.transform.GetComponent<Doorway>();
                 doorway.IncomingHit();
                 hitObj = RayMove(startPos, direction, adj, true);
+            } else if (hit.transform.gameObject.tag == "Goal")
+            {
+                whatHit = "Goal";
+                hitObj = hit.point + adj * 2;
             }
         }
         return hitObj;

@@ -32,6 +32,12 @@ public class Button : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        
+        //could put audio here for the reveal
+    }
+
+    public void Activate()
+    {
         if (aboutToBeHit)
         {
             GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -39,27 +45,27 @@ public class Button : MonoBehaviour
             Debug.Log("triggered button");
             if (Rotate1)
             {
-                foreach(GameObject block in (GameObject.FindGameObjectsWithTag("Rotate1")))
+                foreach (GameObject block in (GameObject.FindGameObjectsWithTag("Rotate1")))
                 {
                     Debug.Log("telling object to toggle");
                     block.GetComponent<Rotate>().RecieveToggle(ChangeSpeed);
                 }
             }
-            if(Rotate2)
+            if (Rotate2)
             {
                 foreach (GameObject block in (GameObject.FindGameObjectsWithTag("Rotate2")))
                 {
                     block.GetComponent<Rotate>().RecieveToggle(ChangeSpeed);
                 }
             }
-            if(Rotate3)
+            if (Rotate3)
             {
                 foreach (GameObject block in (GameObject.FindGameObjectsWithTag("Rotate3")))
                 {
                     block.GetComponent<Rotate>().RecieveToggle(ChangeSpeed);
                 }
             }
-            if(Move1)
+            if (Move1)
             {
                 foreach (GameObject block in (GameObject.FindGameObjectsWithTag("Move1")))
                 {
@@ -85,7 +91,6 @@ public class Button : MonoBehaviour
             //StartCoroutine(Wait(ChangeSpeed - 0.5f *dur, player));
             StartCoroutine(Wait(ChangeSpeed, player));
         }
-        //could put audio here for the reveal
     }
 
     private IEnumerator Wait(float time, GameObject player)

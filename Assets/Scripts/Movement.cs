@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -9,15 +10,19 @@ public class Movement : MonoBehaviour
     [SerializeField] private float gridSize = 1f;
     [SerializeField] private float moveDuration = 0.1f;
     private bool hasMoved;
-    
+    private string whatHit;
+    [SerializeField] private float GoalAnimLeng = 3;
+    [SerializeField] private float GoalShakeLeng = 1;
+
     // Start is called before the first frame update
     void Start()
     {
+        
         hasMoved = false;
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if(!isMoving && !thingsMoving)
         {
@@ -34,7 +39,13 @@ public class Movement : MonoBehaviour
                     foreach (GameObject i in player)
                     {
                         i.GetComponent<Invisibleblock>().Hide();
+                        
                         hasMoved = true;
+                    }
+                    GameObject[] text = GameObject.FindGameObjectsWithTag("InvisibleText");
+                    foreach (GameObject i in text)
+                    {
+                        i.GetComponent<TextDissapear>().Hide();
                     }
                 }
                 StartCoroutine(Move(moving));
@@ -51,15 +62,15 @@ public class Movement : MonoBehaviour
     private IEnumerator Move(Vector2 direction)
     {
         Vector2 adj = direction * 0.5f * gridSize;
-        //Vector2 adjFar = direction * 0.45f * gridSize;
+        //Vector2 adj = direction * 0.45f * gridSize;
 
         isMoving = true;
 
         Vector2 startPos = transform.position;
 
-        Vector2 hitObj = startPos;
+        Vector2 hitObj1 = RayMove(startPos, direction, adj, false);
 
-        hitObj = RayMove(startPos, direction, adj, false);
+        Vector2 hitObj = hitObj1 - adj;
 
         //float distance = Vector2.Distance(startPos, hitObj);
 
@@ -71,6 +82,13 @@ public class Movement : MonoBehaviour
         //}
         
         float elapsedTime = 0;
+
+        if (Vector2.Distance(hitObj1, startPos) < 1)
+        {
+            Debug.Log("Moving into something next to you");
+            transform.position = startPos + (hitObj1 - startPos) * 0.1f;
+            startPos = transform.position;
+        }
 
         while(elapsedTime < normMoveDuration)
         {
@@ -84,6 +102,33 @@ public class Movement : MonoBehaviour
         transform.position = hitObj;
 
         //yield return new WaitForSeconds(0.1f);
+        //yield return null;
+        switch (whatHit)
+        {
+            case "Sticky":
+                break;
+            case "Teleport":
+                foreach (GameObject i in GameObject.FindGameObjectsWithTag(whatHit)) 
+                {
+                    i.GetComponent<Teleport>().Activate(startPos);
+                }
+                break;
+            case "Button":
+                foreach (GameObject i in GameObject.FindGameObjectsWithTag(whatHit))
+                {
+                    i.GetComponent<Button>().Activate();
+                }
+                break;
+            case "Goal":
+                Debug.Log("Goal Reached");
+                ThingsMoving();
+                StartCoroutine(GoalReached());
+                break;
+            default:
+                break;
+        }
+
+        GameObject.FindGameObjectWithTag("Moves").GetComponent<MoveCounter>().AddMoves(1);
 
         isMoving = false;
     }
@@ -110,23 +155,31 @@ public class Movement : MonoBehaviour
         if (hit)
         {
             Debug.Log("hit object at " + hit.point);
-            hitObj = hit.point - adj;
+            hitObj = hit.point;
             if (hit.transform.gameObject.tag == "Button")
             {
                 Button button = hit.transform.GetComponent<Button>();
                 button.IncomingHit();
+                whatHit = "Button";
             } else if (hit.transform.gameObject.tag == "Teleport")
             {
                 Teleport teleport = hit.transform.GetComponent<Teleport>();
+                hitObj = hit.point + adj * 2;
                 teleport.IncomingHit();
+                whatHit = "Teleport";
             } else if (hit.transform.gameObject.tag == "Sticky")
             {
-                hitObj = hit.point + adj;
+                hitObj = hit.point + adj * 2;
+                whatHit = "Sticky";
             } else if (hit.transform.gameObject.tag == "Doorway" && ignore == false)
             {
                 Doorway doorway = hit.transform.GetComponent<Doorway>();
                 doorway.IncomingHit();
                 hitObj = RayMove(startPos, direction, adj, true);
+            } else if (hit.transform.gameObject.tag == "Goal")
+            {
+                whatHit = "Goal";
+                hitObj = hit.point + adj * 2;
             }
         }
         return hitObj;
@@ -135,9 +188,45 @@ public class Movement : MonoBehaviour
     public void Teleport(Vector2 position, Vector2 direction)
     {
         isMoving = true;
-        transform.position = position + direction;
+        //GetComponent<TrailRenderer>().emitting = false;
+        //Vector2 pos = position + direction;
+        GameObject newPlayer = Instantiate(gameObject, position = new Vector3(position.x, position.y), transform.rotation);
+        newPlayer.GetComponent<Movement>().movePlz(direction);
+        //newPlayer.GetComponent<Movement>().setIsMoving(true);
+        gameObject.GetComponent<SpriteRenderer>().sortingLayerID = SortingLayer.NameToID("mid");
+        gameObject.GetComponent<TrailRenderer>().autodestruct = true;
+        //transform.position = position + direction;
+        //GetComponent<TrailRenderer>().Clear();
+        //GetComponent<TrailRenderer>().emitting = true;
+        //ThingsMoved();
+        //StartCoroutine(Move(direction));
+        //StartCoroutine(TeleportRun(position, direction));
+    }
+
+    public void movePlz(Vector2 direction)
+    {
         StartCoroutine(Move(direction));
     }
+
+    public void setIsMoving(bool isIt)
+    {
+        isMoving = isIt;
+    }
+    
+    /*
+    public IEnumerator TeleportRun(Vector2 position, Vector2 direction)
+    {
+        transform.position = position + direction;
+        
+        GetComponent<TrailRenderer>().Clear();
+        //yield return null;
+        GetComponent<TrailRenderer>().emitting = true;
+        ThingsMoved();
+        StartCoroutine(Move(direction));
+        yield return null;
+    }
+    */
+    
     public void ThingsMoving()
     {
         thingsMoving = true;
@@ -147,6 +236,61 @@ public class Movement : MonoBehaviour
     {
         thingsMoving = false;
     }
+
+    public IEnumerator GoalReached()
+    {
+        GameObject.FindGameObjectWithTag("Goal").GetComponent<ReachGoal>().CompleteLevel();
+        SpriteRenderer sprRen = gameObject.GetComponent<SpriteRenderer>();
+        Vector3 startScale = transform.localScale;
+        float timeElapsed = 0.0f;
+        Vector3 originalPos = transform.position;
+        gameObject.GetComponent<TrailRenderer>().enabled = false;
+        while(timeElapsed < GoalShakeLeng)
+        {
+            transform.position = originalPos + new Vector3(0.01f, 0);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(0.01f, 0.01f);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(0, 0.01f);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(-0.01f, 0.01f);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(-0.01f, 0);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(-0.01f, -0.01f);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(0f, -0.01f);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(0.01f, -0.01f);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+        }
+        transform.position = originalPos;
+        yield return new WaitForSeconds(0.5f);
+        timeElapsed = 0.0f;
+        while (timeElapsed < GoalAnimLeng)
+        {
+            timeElapsed += Time.deltaTime;
+            float percent = timeElapsed / GoalAnimLeng;
+            float r = Mathf.Lerp(1, 0, percent);
+            Debug.Log(r);
+            sprRen.color = new Color(r, 0, 0);
+            transform.localScale = Vector3.Lerp(startScale, new Vector3(0, 0, 1), percent);
+            yield return null;
+        }
+
+        SceneManager.LoadScene("Level select");
+        
+        //CompleteLevel();
+    }
+
 
     /*
             else if (hit.transform.gameObject.tag == "Invisible")

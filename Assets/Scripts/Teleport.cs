@@ -21,11 +21,30 @@ public class Teleport : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        /*
         if(aboutToBeHit == true)
         {
             Debug.Log("Collision with teleporter detected");
             GameObject hitObject = collision.gameObject;
+            hitObject.GetComponent<Movement>().ThingsMoving();
+            hitObject.GetComponent<TrailRenderer>().emitting = false;
             Vector2 directionOfObject = hitObject.transform.position - transform.position;
+            hitObject.GetComponent<Movement>().Teleport(location, directionOfObject * -1);
+            aboutToBeHit = false;
+        }
+        */
+    }
+
+    public void Activate(Vector2 dir)
+    {
+        if(aboutToBeHit == true)
+        {
+            Debug.Log("Collision with teleporter detected");
+            GameObject hitObject = GameObject.FindGameObjectWithTag("Player");
+            hitObject.GetComponent<Movement>().ThingsMoving();
+            //hitObject.GetComponent<TrailRenderer>().emitting = false;
+            Vector2 directionOfObject = new Vector3(dir.x,dir.y) - transform.position;
+            directionOfObject = directionOfObject.normalized;
             hitObject.GetComponent<Movement>().Teleport(location, directionOfObject * -1);
             aboutToBeHit = false;
         }

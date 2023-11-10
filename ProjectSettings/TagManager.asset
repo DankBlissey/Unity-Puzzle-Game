@@ -18,6 +18,8 @@ TagManager:
   - Teleport
   - Invisible
   - InvisibleText
+  - Moves
+  - Time
   layers:
   - Default
   - TransparentFX

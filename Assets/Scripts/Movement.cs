@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Movement : MonoBehaviour
 {
@@ -10,7 +11,9 @@ public class Movement : MonoBehaviour
     [SerializeField] private float moveDuration = 0.1f;
     private bool hasMoved;
     private string whatHit;
-    
+    [SerializeField] private float GoalAnimLeng = 3;
+    [SerializeField] private float GoalShakeLeng = 1;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -105,7 +108,7 @@ public class Movement : MonoBehaviour
             case "Sticky":
                 break;
             case "Teleport":
-                foreach (GameObject i in GameObject.FindGameObjectsWithTag(whatHit))
+                foreach (GameObject i in GameObject.FindGameObjectsWithTag(whatHit)) 
                 {
                     i.GetComponent<Teleport>().Activate(startPos);
                 }
@@ -117,11 +120,15 @@ public class Movement : MonoBehaviour
                 }
                 break;
             case "Goal":
-
+                Debug.Log("Goal Reached");
+                ThingsMoving();
+                StartCoroutine(GoalReached());
                 break;
             default:
                 break;
         }
+
+        GameObject.FindGameObjectWithTag("Moves").GetComponent<MoveCounter>().AddMoves(1);
 
         isMoving = false;
     }
@@ -228,6 +235,60 @@ public class Movement : MonoBehaviour
     public void ThingsMoved()
     {
         thingsMoving = false;
+    }
+
+    public IEnumerator GoalReached()
+    {
+        GameObject.FindGameObjectWithTag("Goal").GetComponent<ReachGoal>().CompleteLevel();
+        SpriteRenderer sprRen = gameObject.GetComponent<SpriteRenderer>();
+        Vector3 startScale = transform.localScale;
+        float timeElapsed = 0.0f;
+        Vector3 originalPos = transform.position;
+        gameObject.GetComponent<TrailRenderer>().enabled = false;
+        while(timeElapsed < GoalShakeLeng)
+        {
+            transform.position = originalPos + new Vector3(0.01f, 0);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(0.01f, 0.01f);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(0, 0.01f);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(-0.01f, 0.01f);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(-0.01f, 0);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(-0.01f, -0.01f);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(0f, -0.01f);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+            transform.position = originalPos + new Vector3(0.01f, -0.01f);
+            yield return null;
+            timeElapsed += Time.deltaTime;
+        }
+        transform.position = originalPos;
+        yield return new WaitForSeconds(0.5f);
+        timeElapsed = 0.0f;
+        while (timeElapsed < GoalAnimLeng)
+        {
+            timeElapsed += Time.deltaTime;
+            float percent = timeElapsed / GoalAnimLeng;
+            float r = Mathf.Lerp(1, 0, percent);
+            Debug.Log(r);
+            sprRen.color = new Color(r, 0, 0);
+            transform.localScale = Vector3.Lerp(startScale, new Vector3(0, 0, 1), percent);
+            yield return null;
+        }
+
+        SceneManager.LoadScene("Level select");
+        
+        //CompleteLevel();
     }
 
 

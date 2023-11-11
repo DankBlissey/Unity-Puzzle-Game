@@ -13,12 +13,29 @@ public class Movement : MonoBehaviour
     private string whatHit;
     [SerializeField] private float GoalAnimLeng = 3;
     [SerializeField] private float GoalShakeLeng = 1;
+    public AudioClip bump;
+    public AudioClip slide;
+    public AudioClip whoosh1;
+    public AudioClip whoosh2;
+    public AudioClip whoosh3;
+    public AudioClip whoosh4;
+    public AudioClip whoosh5;
+    private List<AudioClip> whooshList = new List<AudioClip>();
+
 
     // Start is called before the first frame update
     void Start()
-    {
-        
+    { 
         hasMoved = false;
+    }
+
+    void Awake()
+    {
+        whooshList.Add(whoosh1);
+        whooshList.Add(whoosh2);
+        whooshList.Add(whoosh3);
+        whooshList.Add(whoosh4);
+        whooshList.Add(whoosh5);
     }
 
     // Update is called once per frame
@@ -82,15 +99,23 @@ public class Movement : MonoBehaviour
         //}
         
         float elapsedTime = 0;
+        AudioSource audioSource = gameObject.GetComponent<AudioSource>();
 
         if (Vector2.Distance(hitObj1, startPos) < 1)
         {
             Debug.Log("Moving into something next to you");
             transform.position = startPos + (hitObj1 - startPos) * 0.1f;
             startPos = transform.position;
+            audioSource.PlayOneShot(bump);
+        } else
+        {
+            int setIndex = Random.Range(0, whooshList.Count - 1);
+            AudioClip whooshToUse = whooshList[setIndex];
+            audioSource.PlayOneShot(whooshToUse);
         }
+        
 
-        while(elapsedTime < normMoveDuration)
+        while (elapsedTime < normMoveDuration)
         {
             elapsedTime += Time.deltaTime;
             float percent = elapsedTime / normMoveDuration;
@@ -103,9 +128,11 @@ public class Movement : MonoBehaviour
 
         //yield return new WaitForSeconds(0.1f);
         //yield return null;
+        
         switch (whatHit)
         {
             case "Sticky":
+                Debug.Log("Hit sticky block");
                 break;
             case "Teleport":
                 foreach (GameObject i in GameObject.FindGameObjectsWithTag(whatHit)) 
@@ -114,6 +141,8 @@ public class Movement : MonoBehaviour
                 }
                 break;
             case "Button":
+                Debug.Log("Hit button");
+                audioSource.Play();
                 foreach (GameObject i in GameObject.FindGameObjectsWithTag(whatHit))
                 {
                     i.GetComponent<Button>().Activate();
@@ -125,8 +154,12 @@ public class Movement : MonoBehaviour
                 StartCoroutine(GoalReached());
                 break;
             default:
+
+                
                 break;
         }
+        
+        
 
         GameObject.FindGameObjectWithTag("Moves").GetComponent<MoveCounter>().AddMoves(1);
 
@@ -154,7 +187,7 @@ public class Movement : MonoBehaviour
 
         if (hit)
         {
-            Debug.Log("hit object at " + hit.point);
+            //Debug.Log("hit object at " + hit.point);
             hitObj = hit.point;
             if (hit.transform.gameObject.tag == "Button")
             {
@@ -180,6 +213,9 @@ public class Movement : MonoBehaviour
             {
                 whatHit = "Goal";
                 hitObj = hit.point + adj * 2;
+            } else
+            {
+                whatHit = "";
             }
         }
         return hitObj;
@@ -244,47 +280,52 @@ public class Movement : MonoBehaviour
         Vector3 startScale = transform.localScale;
         float timeElapsed = 0.0f;
         Vector3 originalPos = transform.position;
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.volume = 0.2f;
         gameObject.GetComponent<TrailRenderer>().enabled = false;
         while(timeElapsed < GoalShakeLeng)
         {
-            transform.position = originalPos + new Vector3(0.01f, 0);
+            transform.position = originalPos + new Vector3(0.05f, 0);
             yield return null;
             timeElapsed += Time.deltaTime;
-            transform.position = originalPos + new Vector3(0.01f, 0.01f);
+            transform.position = originalPos + new Vector3(0.05f, 0.05f);
             yield return null;
             timeElapsed += Time.deltaTime;
-            transform.position = originalPos + new Vector3(0, 0.01f);
+            transform.position = originalPos + new Vector3(0, 0.05f);
             yield return null;
             timeElapsed += Time.deltaTime;
-            transform.position = originalPos + new Vector3(-0.01f, 0.01f);
+            transform.position = originalPos + new Vector3(-0.05f, 0.05f);
             yield return null;
             timeElapsed += Time.deltaTime;
-            transform.position = originalPos + new Vector3(-0.01f, 0);
+            transform.position = originalPos + new Vector3(-0.05f, 0);
             yield return null;
             timeElapsed += Time.deltaTime;
-            transform.position = originalPos + new Vector3(-0.01f, -0.01f);
+            transform.position = originalPos + new Vector3(-0.05f, -0.05f);
             yield return null;
             timeElapsed += Time.deltaTime;
-            transform.position = originalPos + new Vector3(0f, -0.01f);
+            transform.position = originalPos + new Vector3(0f, -0.05f);
             yield return null;
             timeElapsed += Time.deltaTime;
-            transform.position = originalPos + new Vector3(0.01f, -0.01f);
+            transform.position = originalPos + new Vector3(0.05f, -0.05f);
             yield return null;
             timeElapsed += Time.deltaTime;
+            audioSource.PlayOneShot(bump);
         }
         transform.position = originalPos;
         yield return new WaitForSeconds(0.5f);
+        audioSource.PlayOneShot(slide);
         timeElapsed = 0.0f;
         while (timeElapsed < GoalAnimLeng)
         {
             timeElapsed += Time.deltaTime;
             float percent = timeElapsed / GoalAnimLeng;
             float r = Mathf.Lerp(1, 0, percent);
-            Debug.Log(r);
             sprRen.color = new Color(r, 0, 0);
             transform.localScale = Vector3.Lerp(startScale, new Vector3(0, 0, 1), percent);
             yield return null;
         }
+
+        audioSource.volume = 1;
 
         SceneManager.LoadScene("Level select");
         

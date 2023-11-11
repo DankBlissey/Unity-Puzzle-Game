@@ -7,6 +7,7 @@ public class Teleport : MonoBehaviour
     [SerializeField] private Vector2 location;
     [SerializeField] private float waitTime;
     private bool aboutToBeHit;
+    [SerializeField] private AudioClip tp;
     // Start is called before the first frame update
     void Start()
     {
@@ -46,6 +47,16 @@ public class Teleport : MonoBehaviour
             Vector2 directionOfObject = new Vector3(dir.x,dir.y) - transform.position;
             directionOfObject = directionOfObject.normalized;
             hitObject.GetComponent<Movement>().Teleport(location, directionOfObject * -1);
+            GameObject[] go;
+            go = GameObject.FindGameObjectsWithTag("Teleport");
+            foreach (var obj in go)
+            {
+                if (new Vector3(location.x, location.y) == obj.transform.position)
+                {
+                    AudioSource source = obj.GetComponent<AudioSource>();
+                    source.PlayOneShot(tp);
+                }
+            }
             aboutToBeHit = false;
         }
     }

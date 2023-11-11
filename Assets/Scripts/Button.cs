@@ -12,6 +12,7 @@ public class Button : MonoBehaviour
     [SerializeField] private bool Move3;
     [SerializeField] private float ChangeSpeed;
     private bool aboutToBeHit;
+    [SerializeField] private AudioClip buttonPress;
 
     // Start is called before the first frame update
     void Start()
@@ -43,6 +44,8 @@ public class Button : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             player.GetComponent<Movement>().ThingsMoving();
             Debug.Log("triggered button");
+            AudioSource source = gameObject.GetComponent<AudioSource>();
+            source.PlayOneShot(buttonPress);
             if (Rotate1)
             {
                 foreach (GameObject block in (GameObject.FindGameObjectsWithTag("Rotate1")))

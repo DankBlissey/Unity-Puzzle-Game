@@ -10,12 +10,17 @@ public class NewBehaviourScript : MonoBehaviour
    
     public void PlayGame()
     {
-            SceneManager.LoadScene(1);
+        SceneManager.LoadScene(1);
     }
 
     public void QuitGame()
     {
         Application.Quit();
+    }
+
+    public void ControlsMenu()
+    {
+        SceneManager.LoadScene(2);
     }
 
 }

@@ -5,16 +5,52 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/Advanced1.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
     path: Assets/Scenes/Main menu.unity
-    guid: af6ba616d9e49584099e67d7afeabf30
+    guid: d621cc9ffd7a00c4992196f6bfe03dd8
   - enabled: 1
     path: Assets/Scenes/Level Select.unity
-    guid: fe33367fee346244894658ac227cd171
+    guid: dedb9f0adc62c714f97333748c4912cb
   - enabled: 1
-    path: Assets/Scenes/Turtorial 1.unity
-    guid: 00fb4d0f070a45343a1c6beff36ae8aa
+    path: Assets/Scenes/ControlsMenu.unity
+    guid: d477c135a32cf264592149c66ec27cae
+  - enabled: 1
+    path: Assets/Scenes/Level 1 (Tutorial Basic).unity
+    guid: dc67cfc7a707c354f805145393cf3ed8
+  - enabled: 1
+    path: Assets/Scenes/Level 2.unity
+    guid: a5255e8b6b273ee42aa9b81722b6f051
+  - enabled: 1
+    path: Assets/Scenes/Level 3.unity
+    guid: e3b8ce1b79d558e4cb9dd67d47c69922
+  - enabled: 1
+    path: Assets/Scenes/Level 4.unity
+    guid: b9cc6e6b17d9f324c8e826dca917f0da
+  - enabled: 1
+    path: Assets/Scenes/Level 5 (Tutorial Button).unity
+    guid: 4c241fca8a1cc3f4cb1622bbdde1048e
+  - enabled: 1
+    path: Assets/Scenes/Level 6.unity
+    guid: 6c8c57526d942a649a03a2c6da6069ed
+  - enabled: 1
+    path: Assets/Scenes/Level 7.unity
+    guid: b24a5c70b9521bc4abd553b62af9d852
+  - enabled: 1
+    path: Assets/Scenes/Level 8.unity
+    guid: 64919ccdbd1975744945bd5a7f14ee0d
+  - enabled: 1
+    path: Assets/Scenes/Level 9.unity
+    guid: 5c8b494ce290c6d4aad0971710a9d1cc
+  - enabled: 1
+    path: Assets/Scenes/Level 10 (Teleport Tutorial).unity
+    guid: ef97e4a66386ef041afec8729f11d5fc
+  - enabled: 1
+    path: Assets/Scenes/Level 11.unity
+    guid: e3bc9ba91eb903548b20265063e4a58a
+  - enabled: 1
+    path: Assets/Scenes/Level 12.unity
+    guid: ff30ea88f88ba3149bfc179f3f1022b5
+  - enabled: 1
+    path: Assets/Scenes/Sticky Tutorial.unity
+    guid: 358e18e7a5f762944bad332a04c3a3e0
   m_configObjects: {}

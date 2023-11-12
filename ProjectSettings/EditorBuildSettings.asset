@@ -30,27 +30,48 @@ EditorBuildSettings:
     path: Assets/Scenes/Level 5 (Tutorial Button).unity
     guid: 4c241fca8a1cc3f4cb1622bbdde1048e
   - enabled: 1
-    path: Assets/Scenes/Level 6 (Sticky Tutorial).unity
-    guid: 358e18e7a5f762944bad332a04c3a3e0
+    path: Assets/Scenes/Level 6.unity
+    guid: d24ce2b80671cec4186b5a2d1e4fcfcb
   - enabled: 1
     path: Assets/Scenes/Level 7.unity
-    guid: 6c8c57526d942a649a03a2c6da6069ed
+    guid: 42003456b2a99bc4c97c3cab64c6eeeb
   - enabled: 1
-    path: Assets/Scenes/Level 8.unity
-    guid: b24a5c70b9521bc4abd553b62af9d852
+    path: Assets/Scenes/Level 8 (Sticky Tutorial).unity
+    guid: 358e18e7a5f762944bad332a04c3a3e0
   - enabled: 1
     path: Assets/Scenes/Level 9.unity
-    guid: 64919ccdbd1975744945bd5a7f14ee0d
+    guid: 6c8c57526d942a649a03a2c6da6069ed
   - enabled: 1
     path: Assets/Scenes/Level 10.unity
-    guid: 5c8b494ce290c6d4aad0971710a9d1cc
+    guid: b24a5c70b9521bc4abd553b62af9d852
   - enabled: 1
-    path: Assets/Scenes/Level 11 (Teleport Tutorial).unity
-    guid: ef97e4a66386ef041afec8729f11d5fc
+    path: Assets/Scenes/Level 11.unity
+    guid: 64919ccdbd1975744945bd5a7f14ee0d
   - enabled: 1
     path: Assets/Scenes/Level 12.unity
+    guid: 5c8b494ce290c6d4aad0971710a9d1cc
+  - enabled: 1
+    path: Assets/Scenes/Level 13 (Teleport Tutorial).unity
+    guid: ef97e4a66386ef041afec8729f11d5fc
+  - enabled: 1
+    path: Assets/Scenes/Level 14.unity
     guid: e3bc9ba91eb903548b20265063e4a58a
   - enabled: 1
-    path: Assets/Scenes/Level 13.unity
+    path: Assets/Scenes/Level 15.unity
     guid: ff30ea88f88ba3149bfc179f3f1022b5
+  - enabled: 1
+    path: Assets/Scenes/Level 16 (Invisible Tutorial).unity
+    guid: bea2df6a9900a1b4f81162e797947193
+  - enabled: 1
+    path: Assets/Scenes/Level 17.unity
+    guid: 906a1946676e3d9498695bdff3790eac
+  - enabled: 1
+    path: Assets/Scenes/Advanced1.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
+  - enabled: 1
+    path: Assets/Scenes/Advanced2.unity
+    guid: 4ce8972eb483435478109f0d6b1066f8
+  - enabled: 1
+    path: Assets/Scenes/Final Level.unity
+    guid: 160a352edb50c7f41b3aa44e285b68d9
   m_configObjects: {}

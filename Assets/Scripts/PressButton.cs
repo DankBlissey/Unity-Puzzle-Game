@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Button : MonoBehaviour
+public class PressButton : MonoBehaviour
 {
     [SerializeField] private bool Rotate1;
     [SerializeField] private bool Rotate2;

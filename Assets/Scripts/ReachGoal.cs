@@ -21,14 +21,15 @@ public class ReachGoal : MonoBehaviour
     {
         int moves = GameObject.FindGameObjectWithTag("Moves").GetComponent<MoveCounter>().GetMoves();
         float time = GameObject.FindGameObjectWithTag("Time").GetComponent<TimeCounter>().StopTime();
-        if(moves < PlayerPrefs.GetInt(level + "Moves", 10000))
+        if(moves < PlayerPrefs.GetInt("Level" + level + "Moves", 10000))
         {
-            PlayerPrefs.SetInt(level + "Moves", moves);
+            PlayerPrefs.SetInt("Level" + level + "Moves", moves);
         }
-        if(time < PlayerPrefs.GetFloat(level + "Time", 10000))
+        if(time < PlayerPrefs.GetFloat("Level" + level + "Time", 10000))
         {
-            PlayerPrefs.SetFloat(level + "Time", time);
+            PlayerPrefs.SetFloat("Level" + level + "Time", time);
         }
+        Destroy(GameObject.FindGameObjectWithTag("UiCanvas"));
         PlayerPrefs.Save();
     }
 }

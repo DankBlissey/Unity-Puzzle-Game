@@ -145,7 +145,7 @@ public class Movement : MonoBehaviour
                 audioSource.Play();
                 foreach (GameObject i in GameObject.FindGameObjectsWithTag(whatHit))
                 {
-                    i.GetComponent<Button>().Activate();
+                    i.GetComponent<PressButton>().Activate();
                 }
                 break;
             case "Goal":
@@ -191,7 +191,7 @@ public class Movement : MonoBehaviour
             hitObj = hit.point;
             if (hit.transform.gameObject.tag == "Button")
             {
-                Button button = hit.transform.GetComponent<Button>();
+                PressButton button = hit.transform.GetComponent<PressButton>();
                 button.IncomingHit();
                 whatHit = "Button";
             } else if (hit.transform.gameObject.tag == "Teleport")

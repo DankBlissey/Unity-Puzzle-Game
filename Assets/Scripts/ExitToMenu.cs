@@ -21,5 +21,6 @@ public class ExitToMenu : MonoBehaviour
     {
         Debug.Log("Going back to Menu");
         SceneManager.LoadScene("Level Select");
+        Destroy(GameObject.FindGameObjectWithTag("UiCanvas"));
     }
 }

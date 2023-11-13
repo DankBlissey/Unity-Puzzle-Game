@@ -456,8 +456,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 633464238}
+  m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -888,9 +887,17 @@ PrefabInstance:
       objectReference: {fileID: 1120153857}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8211356553044743, guid: 5c1afe00a0a01fb45a6cc4e36f33d267, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 633464238}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c1afe00a0a01fb45a6cc4e36f33d267, type: 3}
+--- !u!224 &622076257 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8211356553044743, guid: 5c1afe00a0a01fb45a6cc4e36f33d267, type: 3}
+  m_PrefabInstance: {fileID: 622076256}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &633464237
 GameObject:
   m_ObjectHideFlags: 0
@@ -917,15 +924,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 633464237}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 90}
-  m_LocalScale: {x: 0.030599998, y: 0.026039999, z: 0.052079998}
+  m_LocalPosition: {x: 0, y: 0, z: 200.69395}
+  m_LocalScale: {x: 0.06823589, y: 0.058067407, z: 0.116134815}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 288466034}
+  m_Father: {fileID: 622076257}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 130, y: -60}
+  m_AnchoredPosition: {x: 67.5, y: -67.5}
   m_SizeDelta: {x: 10000, y: 10000}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &633464239
@@ -1011,7 +1018,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -1480.2383, y: 571.53613, z: 6249.3154, w: 5133.8433}
+  m_margin: {x: 4561.923, y: 571.53613, z: 1415.5884, w: 5133.8433}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
